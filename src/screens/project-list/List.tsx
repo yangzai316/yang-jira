@@ -1,6 +1,18 @@
-export const List = ({ list, users }) => {
+import { User } from './Search';
+interface ListItem {
+    name: string;
+    personId: string;
+    id: string;
+}
+
+interface ListProps {
+    list: ListItem[];
+    users: User[];
+}
+
+export const List = ({ list, users }: ListProps) => {
     return (
-        <table border="1">
+        <table>
             <thead>
                 <tr>
                     <th>项目名</th>

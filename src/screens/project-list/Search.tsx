@@ -1,6 +1,18 @@
-import { useEffect, useState } from 'react';
+export interface User {
+    name: string;
+    personId: string;
+    id: string;
+}
+interface SearchProps {
+    users: User[];
+    params: {
+        name: string;
+        personId: string;
+    };
+    setParams: (params: SearchProps['params']) => void;
+}
 
-export const Search = ({ params, setParams, users }) => {
+export const Search = ({ params, setParams, users }: SearchProps) => {
     return (
         <form>
             <div>
