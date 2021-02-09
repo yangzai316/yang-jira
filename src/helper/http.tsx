@@ -40,7 +40,8 @@ export const http = (url: string, { data, token, headers, ...customConfig }: Con
 
 export const useHttp = () => {
   const { user } = useAuth();
-  return (...[url, config]: [string, Config]) => {
+  // utility types
+  return (...[url, config]: Parameters<typeof http>) => {
     return http(url, { ...config, token: user?.token || '' });
   };
 };
