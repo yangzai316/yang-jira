@@ -24,7 +24,7 @@ export const List = ({ list, users }: ListProps) => {
           return (
             <tr key={item.id}>
               <td>{item.name}</td>
-              <td>{users.find((o) => o.personId === item.personId)?.name || '-'}</td>
+              <td>{users.find((o) => o.id === item.personId)?.name || '-'}</td>
             </tr>
           );
         })}

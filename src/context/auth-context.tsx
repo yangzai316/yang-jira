@@ -1,6 +1,7 @@
-import React, { useState, useContext, ReactNode } from 'react';
+import React, { useState, useContext, ReactNode, useEffect } from 'react';
 import * as auth from './../auth-provider';
 import { User } from './../screens/project-list/Search';
+import { http } from './../helper';
 
 const AuthContext = React.createContext<
   | {
@@ -19,6 +20,15 @@ interface AuthForm {
 
 AuthContext.displayName = 'AuthContext';
 
+const bootstrapUser = async () => {
+  let user = null;
+  const token = auth.getToken();
+  if (token) {
+    user = await http('/me', { token });
+  }
+  return user;
+};
+
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
 
@@ -32,6 +42,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     auth.logout().then(() => setUser(null));
   };
 
+  useEffect(() => {
+    bootstrapUser().then((res) => {
+      return setUser(res?.user);
+    });
+  }, []);
   return <AuthContext.Provider children={children} value={{ user, login, register, logout }} />;
 };
 

@@ -8,7 +8,7 @@ interface SearchProps {
   users: User[];
   params: {
     name: string;
-    personId: string;
+    id: string;
   };
   setParams: (params: SearchProps['params']) => void;
 }
@@ -28,18 +28,18 @@ export const Search = ({ params, setParams, users }: SearchProps) => {
           }
         />
         <select
-          value={params.personId}
+          value={params.id}
           onChange={(evt) =>
             setParams({
               ...params,
-              personId: evt.target.value,
+              id: evt.target.value,
             })
           }
         >
           <option value="">申请人</option>
           {users.map((item) => {
             return (
-              <option key={item.personId} value={item.personId}>
+              <option key={item.id} value={item.id}>
                 {item.name}
               </option>
             );

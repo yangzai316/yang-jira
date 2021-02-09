@@ -1,40 +1,30 @@
 import { useEffect, useState } from 'react';
 import { useDebounce, clearEmptyString } from '../../helper';
-import * as qs from 'qs';
 
 import { Fragment } from 'react';
 import { Search } from './Search';
 import { List } from './List';
 
-const APIURL = process.env.REACT_APP_API_URL;
+import { useHttp } from './../../helper';
 
 export const ProjectList = () => {
   const [params, setParams] = useState({
     name: '',
-    personId: '',
+    id: '',
   });
 
   const debouncedParam = useDebounce(params, 500);
   const [list, setList] = useState([]);
+  const request = useHttp();
 
   useEffect(() => {
-    fetch(`${APIURL}/projects?${qs.stringify(clearEmptyString({ name: debouncedParam.name, personId: debouncedParam.personId }))}`).then(
-      async (res) => {
-        if (res.ok) {
-          setList(await res.json());
-        }
-      }
-    );
+    request('/projects', { data: clearEmptyString({ name: debouncedParam.name, id: debouncedParam.id }) }).then((res) => setList(res));
   }, [debouncedParam]);
 
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    fetch(`${APIURL}/users`).then(async (res) => {
-      if (res.ok) {
-        setUsers(await res.json());
-      }
-    });
+    request('/users', {}).then((res) => setUsers(res));
   }, []);
 
   return (

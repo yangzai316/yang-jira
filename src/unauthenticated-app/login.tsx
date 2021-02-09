@@ -2,11 +2,11 @@ import { FormEvent } from 'react';
 import { useAuth } from '../context/auth-context';
 
 export const Login = () => {
-  const { login, user } = useAuth();
+  const { login } = useAuth();
   const handleSbumit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const username = (event.currentTarget.elements[0] as HTMLInputElement).value;
-    const password = (event.currentTarget.elements[1] as HTMLInputElement).value;
+    const username = (event.currentTarget.elements[0] as HTMLInputElement).value || 'a';
+    const password = (event.currentTarget.elements[1] as HTMLInputElement).value || '123';
     login({ username, password });
   };
   return (
@@ -22,7 +22,6 @@ export const Login = () => {
         </div>
         <button type="submit">登陆</button>
       </form>
-      <p>{user ? JSON.stringify(user) : '未登录'}</p>
     </div>
   );
 };
