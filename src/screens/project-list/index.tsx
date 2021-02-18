@@ -18,13 +18,15 @@ export const ProjectList = () => {
   const request = useHttp();
 
   useEffect(() => {
-    request('/projects', { data: clearEmptyString({ name: debouncedParam.name, id: debouncedParam.id }) }).then((res) => setList(res));
+    request('/projects', { data: clearEmptyString({ name: debouncedParam.name, personId: debouncedParam.id }) }).then((res) => setList(res));
+    // eslint-disable-next-line
   }, [debouncedParam]);
 
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
     request('/users', {}).then((res) => setUsers(res));
+    // eslint-disable-next-line
   }, []);
 
   return (
