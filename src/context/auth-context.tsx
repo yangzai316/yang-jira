@@ -1,11 +1,11 @@
 import React, { useState, useContext, ReactNode, useEffect } from 'react';
 import { User } from './../pages/screens/project-list/search';
-import { http, auth } from './../helper';
+import { http, auth } from 'helper';
 
 const AuthContext = React.createContext<
   | {
       user: User | null;
-      login: (form: AuthForm) => void;
+      login: (form: AuthForm) => Promise<void>;
       register: (form: AuthForm) => void;
       logout: () => void;
       loading: Boolean;
@@ -33,15 +33,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const login = (form: AuthForm) => {
-    auth.login(form).then((res) => setUser(res));
-  };
-  const register = (form: AuthForm) => {
-    auth.register(form).then((res) => setUser(res));
-  };
-  const logout = () => {
-    auth.logout().then(() => setUser(null));
-  };
+  const login = (form: AuthForm) => auth.login(form).then(setUser);
+  const register = (form: AuthForm) => auth.register(form).then(setUser);
+  const logout = () => auth.logout().then(() => setUser(null));
 
   useEffect(() => {
     bootstrapUser()

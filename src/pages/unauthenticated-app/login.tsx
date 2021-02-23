@@ -1,9 +1,15 @@
 import { Form, Input, Button } from 'antd';
 import { useAuth } from '../../context/auth-context';
+import { useAsync } from 'helper';
 export const Login = () => {
   const { login } = useAuth();
-  const handleSbumit = (values: { username: string; password: string }) => {
-    login(values);
+  const { fetch, isLoading } = useAsync();
+  const handleSbumit = async (values: { username: string; password: string }) => {
+    try {
+      await fetch(login(values));
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div>
@@ -15,7 +21,7 @@ export const Login = () => {
           <Input.Password placeholder="密码：" />
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit" block loading={loadings}>
+          <Button type="primary" htmlType="submit" block loading={isLoading}>
             登陆
           </Button>
         </Form.Item>

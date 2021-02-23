@@ -1,5 +1,5 @@
 import * as qs from 'qs';
-import { auth } from './../helper';
+import { auth } from 'helper';
 import { useAuth } from '../context/auth-context';
 import { message } from 'antd';
 const APIURL = process.env.REACT_APP_API_URL;
