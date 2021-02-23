@@ -1,6 +1,6 @@
 import { Table } from 'antd';
-import { User } from './Search';
-interface ListItem {
+import { User } from './search';
+export interface ListItem {
   name: string;
   personId: string;
   id: string;
@@ -9,12 +9,14 @@ interface ListItem {
 interface ListProps {
   list: ListItem[];
   users: User[];
+  loading: boolean;
 }
 
-export const List = ({ list, users }: ListProps) => {
+export const List = ({ loading, list, users }: ListProps) => {
   return (
     <Table
       rowKey="id"
+      loading={loading}
       pagination={false}
       dataSource={list}
       columns={[

@@ -1,6 +1,7 @@
 import * as qs from 'qs';
-import * as auth from './../auth-provider';
+import { auth } from './../helper';
 import { useAuth } from '../context/auth-context';
+import { message } from 'antd';
 const APIURL = process.env.REACT_APP_API_URL;
 
 interface Config extends RequestInit {
@@ -25,15 +26,17 @@ export const http = (url: string, { data, token, headers, ...customConfig }: Con
   return window.fetch(`${APIURL}${url}`, config).then(async (res) => {
     if (res.status === 401) {
       await auth.logout();
-      // window.location.reload();
       return Promise.reject({ message: '请重新登录' });
     }
     const data = res.json();
+
     if (res.ok) {
       return data;
     } else {
       // 和 axios 不一样，不会处理服务器返回的非2xx的错误，需要手动抛出
-      return Promise.reject();
+      const error = await data;
+      message.error(error.message || '接口出错');
+      return Promise.reject(error);
     }
   });
 };

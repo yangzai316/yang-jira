@@ -1,7 +1,7 @@
-import { useAuth } from '../context/auth-context';
-import { ProjectList } from './../screens/project-list';
+import { useAuth } from '../../context/auth-context';
+import { ProjectList } from '../../pages/screens/project-list';
 import styled from '@emotion/styled';
-import { Row } from 'components/lib';
+import { Row } from './../../components/lib';
 import { Dropdown, Menu, Button } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 

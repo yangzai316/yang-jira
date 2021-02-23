@@ -1,11 +1,9 @@
-import { useEffect, useState } from 'react';
-import { useDebounce, clearEmptyString } from '../../helper';
+import React, { useEffect, useState } from 'react';
+import { useDebounce, clearEmptyString, useAsync, useHttp } from './../../../helper';
+import { ListItem } from './list';
 
-import { Fragment } from 'react';
-import { Search } from './Search';
-import { List } from './List';
-
-import { useHttp } from './../../helper';
+import { Search } from './search';
+import { List } from './list';
 
 export const ProjectList = () => {
   const [params, setParams] = useState({
@@ -14,11 +12,11 @@ export const ProjectList = () => {
   });
 
   const debouncedParam = useDebounce(params, 500);
-  const [list, setList] = useState([]);
   const request = useHttp();
+  const { isLoading, data, fetch } = useAsync<ListItem[]>();
 
   useEffect(() => {
-    request('/projects', { data: clearEmptyString({ name: debouncedParam.name, personId: debouncedParam.id }) }).then((res) => setList(res));
+    fetch(request('/projects', { data: clearEmptyString({ name: debouncedParam.name, personId: debouncedParam.id }) }));
     // eslint-disable-next-line
   }, [debouncedParam]);
 
@@ -30,11 +28,11 @@ export const ProjectList = () => {
   }, []);
 
   return (
-    <Fragment>
+    <>
       <h2>项目列表</h2>
       <Search params={params} setParams={setParams} users={users}></Search>
       <br />
-      <List users={users} list={list}></List>
-    </Fragment>
+      <List loading={isLoading} users={users} list={data || []}></List>
+    </>
   );
 };

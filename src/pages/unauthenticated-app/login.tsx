@@ -1,5 +1,5 @@
 import { Form, Input, Button } from 'antd';
-import { useAuth } from '../context/auth-context';
+import { useAuth } from '../../context/auth-context';
 export const Login = () => {
   const { login } = useAuth();
   const handleSbumit = (values: { username: string; password: string }) => {
@@ -15,7 +15,7 @@ export const Login = () => {
           <Input.Password placeholder="密码：" />
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit" block>
+          <Button type="primary" htmlType="submit" block loading={loadings}>
             登陆
           </Button>
         </Form.Item>

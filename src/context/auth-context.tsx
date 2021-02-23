@@ -1,7 +1,6 @@
 import React, { useState, useContext, ReactNode, useEffect } from 'react';
-import * as auth from './../auth-provider';
-import { User } from './../screens/project-list/Search';
-import { http } from './../helper';
+import { User } from './../pages/screens/project-list/search';
+import { http, auth } from './../helper';
 
 const AuthContext = React.createContext<
   | {
@@ -9,6 +8,7 @@ const AuthContext = React.createContext<
       login: (form: AuthForm) => void;
       register: (form: AuthForm) => void;
       logout: () => void;
+      loading: Boolean;
     }
   | undefined
 >(undefined);
@@ -31,6 +31,7 @@ const bootstrapUser = async () => {
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const login = (form: AuthForm) => {
     auth.login(form).then((res) => setUser(res));
@@ -43,11 +44,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   useEffect(() => {
-    bootstrapUser().then((res) => {
-      return setUser(res?.user);
-    });
+    bootstrapUser()
+      .then((res) => {
+        setUser(res?.user);
+        setLoading(true);
+      })
+      .catch(() => {
+        setLoading(true);
+      });
   }, []);
-  return <AuthContext.Provider children={children} value={{ user, login, register, logout }} />;
+  return <AuthContext.Provider children={children} value={{ user, login, register, logout, loading }} />;
 };
 
 export const useAuth = () => {
