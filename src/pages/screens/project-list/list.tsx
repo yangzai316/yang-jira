@@ -1,5 +1,7 @@
 import { Table } from 'antd';
 import { User } from './search';
+
+import { Link } from 'react-router-dom';
 export interface ListItem {
   name: string;
   personId: string;
@@ -23,6 +25,7 @@ export const List = ({ loading, list, users }: ListProps) => {
         {
           title: '项目名',
           dataIndex: 'name',
+          render: (name, { personId }) => <Link to={`/projects/${personId}`}>{name}</Link>,
         },
         {
           title: '项目负责人',

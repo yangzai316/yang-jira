@@ -8,6 +8,8 @@ interface Config extends RequestInit {
   token?: string;
   data?: object;
 }
+
+// fetch 二次封装
 export const http = (url: string, { data, token, headers, ...customConfig }: Config = {}) => {
   const config = {
     method: 'GET',

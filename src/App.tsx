@@ -12,7 +12,7 @@ function App() {
   return (
     <ErrorBoundary errorRender={errorPage}>
       <div className="App">
-        {loading ? (
+        {!loading ? (
           user ? (
             <AuthenticatedApp />
           ) : (

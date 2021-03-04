@@ -29,9 +29,9 @@ const bootstrapUser = async () => {
   return user;
 };
 
-export const AuthProvider = ({ children }: { children: ReactNode }) => {
+export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const login = (form: AuthForm) => auth.login(form).then(setUser);
   const register = (form: AuthForm) => auth.register(form).then(setUser);
@@ -41,10 +41,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     bootstrapUser()
       .then((res) => {
         setUser(res?.user);
-        setLoading(true);
+        setLoading(false);
       })
       .catch(() => {
-        setLoading(true);
+        setLoading(false);
       });
   }, []);
   return <AuthContext.Provider children={children} value={{ user, login, register, logout, loading }} />;
@@ -52,6 +52,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  if (!context) throw new Error('useAuth 必须在AuthProvider中使用');
+  if (!context) throw new Error('useAuth 必须在AuthContextProvider中使用');
   return context;
 };

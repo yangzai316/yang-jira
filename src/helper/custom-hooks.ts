@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 // 防抖
 export const useDebounce = <V>(value: V, delay: number) => {
   const [debounceValue, setDebounceValue] = useState(value);
@@ -64,4 +64,15 @@ export const useAsync = <D>(initialSate?: State<D>) => {
     isError: state.status === 'error',
     isSuccess: state.status === 'success',
   };
+};
+
+// 修改 document.title
+export const useChangeTitle = function (title: string) {
+  const oldTitle = useRef(document.title).current;
+  useEffect(() => {
+    document.title = title;
+    return () => {
+      document.title = oldTitle;
+    };
+  }, [title, oldTitle]);
 };

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Card, Button } from 'antd';
 import { Register } from './register';
 import { Login } from './login';
+import { useChangeTitle } from 'helper';
 
 import styled from '@emotion/styled';
 import logo from 'assets/logo.svg';
@@ -9,6 +10,7 @@ import left from 'assets/left.svg';
 import right from 'assets/right.svg';
 
 export const UnauthenticatedApp = () => {
+  useChangeTitle('登录/注册');
   const [isRegister, setIsRegister] = useState(false);
   return (
     <Container>
