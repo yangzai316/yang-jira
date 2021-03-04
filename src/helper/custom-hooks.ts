@@ -69,6 +69,7 @@ export const useAsync = <D>(initialSate?: State<D>) => {
 // 修改 document.title
 export const useChangeTitle = function (title: string) {
   const oldTitle = useRef(document.title).current;
+
   useEffect(() => {
     document.title = title;
     return () => {

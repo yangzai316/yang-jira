@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useDebounce, clearEmptyString, useAsync, useHttp } from 'helper';
-import { ListItem } from './list';
+import { useDebounce, clearEmptyString, useAsync, useHttp, useChangeTitle } from 'helper';
 
 import { Search } from './search';
-import { List } from './list';
+import { List, ListItem } from './list';
 
 export const ProjectList = () => {
+  useChangeTitle('项目列表');
+
   const [params, setParams] = useState({
     name: '',
     id: '',

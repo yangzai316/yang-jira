@@ -5,14 +5,12 @@ import { DownOutlined } from '@ant-design/icons';
 import { Route, Routes, Navigate } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 
-import { useChangeTitle } from 'helper';
 import LogoSvg from 'assets/logo.svg';
 import { useAuth } from 'context/auth-context';
 import { ProjectList } from 'pages/screens/project-list';
 import { ProjectDetail } from 'pages/screens/project-detail';
 
 export const AuthenticatedApp = () => {
-  useChangeTitle('项目列表');
   return (
     <div>
       <Head></Head>

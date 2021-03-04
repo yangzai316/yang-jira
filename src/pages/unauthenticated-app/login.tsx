@@ -1,5 +1,5 @@
 import { Form, Input, Button } from 'antd';
-import { useAuth } from '../../context/auth-context';
+import { useAuth } from 'context/auth-context';
 import { useAsync } from 'helper';
 export const Login = () => {
   const { login } = useAuth();

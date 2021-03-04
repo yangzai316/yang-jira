@@ -1,5 +1,5 @@
 import { Form, Input, Button } from 'antd';
-import { useAuth } from '../../context/auth-context';
+import { useAuth } from 'context/auth-context';
 export const Register = () => {
   const { register } = useAuth();
   const handleSbumit = (values: { username: string; password: string }) => {

@@ -1,10 +1,12 @@
-import { Routes, Route, Navigate } from 'react-router';
+import { Routes, Route } from 'react-router';
 import { Link } from 'react-router-dom';
+import { useChangeTitle } from 'helper';
 
 import { Board } from './board';
 import { Rasks } from './rasks';
 
 export const ProjectDetail = () => {
+  useChangeTitle('项目详情');
   return (
     <div>
       <h1>ProjectScreen</h1>
@@ -14,7 +16,6 @@ export const ProjectDetail = () => {
       <Routes>
         <Route path="/board" element={<Board />}></Route>
         <Route path="/rasks" element={<Rasks />}></Route>
-        <Navigate to={window.location.pathname + '/board'} />
       </Routes>
     </div>
   );

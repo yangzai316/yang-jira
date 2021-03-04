@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
-import { useAuth } from './context/auth-context';
-import { AuthenticatedApp } from './pages/authenticated-app';
-import { UnauthenticatedApp } from './pages/unauthenticated-app';
+import { useAuth } from 'context/auth-context';
+import { AuthenticatedApp } from 'pages/authenticated-app';
+import { UnauthenticatedApp } from 'pages/unauthenticated-app';
 import styled from '@emotion/styled';
 import { Spin } from 'antd';
 import { ErrorBoundary } from 'components/error-boundary';
