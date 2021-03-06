@@ -43,7 +43,7 @@ export const Search = ({ params, setParams, users }: SearchProps) => {
           <Select.Option value="">申请人</Select.Option>
           {users.map((item) => {
             return (
-              <Select.Option key={item.id} value={item.id}>
+              <Select.Option key={item.id} value={String(item.id)}>
                 {item.name}
               </Select.Option>
             );

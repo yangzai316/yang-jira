@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { useDebounce, clearEmptyString, useAsync, useHttp, useChangeTitle } from 'helper';
+import { useDebounce, clearEmptyString, useAsync, useHttp, useChangeTitle, useUrlQueryParam } from 'helper';
 
 import { Search } from './search';
 import { List, ListItem } from './list';
+export interface Ke {
+  name: string;
+  personId: string;
+}
 
 export const ProjectList = () => {
   useChangeTitle('项目列表');
 
-  const [params, setParams] = useState({
-    name: '',
-    id: '',
-  });
-
+  // const [params, setParams] = useState({
+  //   name: '',
+  //   id: '',
+  // });
+  const [params, setParams] = useUrlQueryParam(['name', 'id']);
   const debouncedParam = useDebounce(params, 500);
   const request = useHttp();
   const { isLoading, data, fetch } = useAsync<ListItem[]>();
