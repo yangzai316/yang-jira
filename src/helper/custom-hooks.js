@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 // 防抖
-export const useDebounce = <V>(value: V, delay: number) => {
+export const useDebounce = (value, delay) => {
   const [debounceValue, setDebounceValue] = useState(value);
 
   useEffect(() => {
@@ -13,25 +13,18 @@ export const useDebounce = <V>(value: V, delay: number) => {
   return debounceValue;
 };
 
-// 请求的二次封装，配合loading
-interface State<D> {
-  error: Error | null;
-  data: D | null;
-  status: 'idle' | 'loading' | 'error' | 'success';
-}
-
-const defaultInitalState: State<null> = {
+const defaultInitalState = {
   error: null,
   data: null,
   status: 'idle',
 };
-export const useAsync = <D>(initialSate?: State<D>) => {
-  const [state, setState] = useState<State<D>>({
+export const useAsync = (initialSate) => {
+  const [state, setState] = useState({
     ...defaultInitalState,
     ...initialSate,
   });
 
-  const fetch = (promise: Promise<D>) => {
+  const fetch = (promise) => {
     if (!promise || !promise.then) {
       throw new Error('请传入 Promise 类型数据');
     }
@@ -67,7 +60,7 @@ export const useAsync = <D>(initialSate?: State<D>) => {
 };
 
 // 修改 document.title
-export const useChangeTitle = function (title: string) {
+export const useChangeTitle = function (title) {
   const oldTitle = useRef(document.title).current;
 
   useEffect(() => {

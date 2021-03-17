@@ -5,6 +5,14 @@ import reportWebVitals from './reportWebVitals';
 import { loadServer, DevTools } from 'jira-dev-tool';
 import { AppProvider } from 'context';
 import 'antd/dist/antd.less';
+console.log(process.env.REACT_APP_IS_DEV);
+
+if (false) {
+  const whyDidYouRender = require('@welldone-software/why-did-you-render');
+  whyDidYouRender(React, {
+    trackAllPureComponents: true,
+  });
+}
 
 loadServer(() => {
   ReactDOM.render(

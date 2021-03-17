@@ -1,22 +1,9 @@
-import React, { useState, useContext, ReactNode, useEffect } from 'react';
-import { User } from './../pages/screens/project-list/search';
+import React, { useState, useContext,    useEffect } from 'react'; 
 import { http, auth } from 'helper';
 
-const AuthContext = React.createContext<
-  | {
-      user: User | null;
-      login: (form: AuthForm) => Promise<void>;
-      register: (form: AuthForm) => void;
-      logout: () => void;
-      loading: Boolean;
-    }
-  | undefined
->(undefined);
+const AuthContext = React.createContext(undefined);
 
-interface AuthForm {
-  username: string;
-  password: string;
-}
+ 
 
 AuthContext.displayName = 'AuthContext';
 
@@ -29,12 +16,12 @@ const bootstrapUser = async () => {
   return user;
 };
 
-export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);
+export const AuthContextProvider = ({ children } ) => {
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const login = (form: AuthForm) => auth.login(form).then(setUser);
-  const register = (form: AuthForm) => auth.register(form).then(setUser);
+  const login = (form) => auth.login(form).then(setUser);
+  const register = (form ) => auth.register(form).then(setUser);
   const logout = () => auth.logout().then(() => setUser(null));
 
   useEffect(() => {

@@ -1,21 +1,6 @@
 import { Input, Select, Form } from 'antd';
 
-export interface User {
-  name: string;
-  personId: string;
-  id: string;
-  token: string;
-}
-interface SearchProps {
-  users: User[];
-  params: {
-    name: string;
-    id: string;
-  };
-  setParams: (params: SearchProps['params']) => void;
-}
-
-export const Search = ({ params, setParams, users }: SearchProps) => {
+export const Search = ({ params, setParams, users }) => {
   return (
     <Form layout="inline">
       <Form.Item>

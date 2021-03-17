@@ -4,13 +4,8 @@ import { useAuth } from '../context/auth-context';
 import { message } from 'antd';
 const APIURL = process.env.REACT_APP_API_URL;
 
-interface Config extends RequestInit {
-  token?: string;
-  data?: object;
-}
-
 // fetch 二次封装
-export const http = (url: string, { data, token, headers, ...customConfig }: Config = {}) => {
+export const http = (url, { data, token, headers, ...customConfig }) => {
   const config = {
     method: 'GET',
     headers: {
@@ -46,7 +41,7 @@ export const http = (url: string, { data, token, headers, ...customConfig }: Con
 export const useHttp = () => {
   const { user } = useAuth();
   // utility types
-  return (...[url, config]: Parameters<typeof http>) => {
+  return (...[url, config]) => {
     return http(url, { ...config, token: user?.token || '' });
   };
 };

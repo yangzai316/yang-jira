@@ -35,7 +35,7 @@ const FullPage = styled.div`
   align-items: center;
 `;
 
-const errorPage = ({ error }: { error: Error | null }) => {
+const errorPage = ({ error } ) => {
   return <h1>报错了：{error?.message}</h1>;
 };
 export default App;

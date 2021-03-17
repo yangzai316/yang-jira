@@ -1,6 +1,5 @@
 // 在真实环境中，如果使用firebase这种第三方auth服务的话，本文件不需要开发者开发,前端模拟登录/注册接口
-
-import { User } from 'pages/screens/project-list/search';
+ 
 import { message } from 'antd';
 
 const apiUrl = process.env.REACT_APP_API_URL;
@@ -11,13 +10,13 @@ const localStorageKey = '__auth_provider_token__';
 export const getToken = () => window.localStorage.getItem(localStorageKey);
 
 // user.token 储存本地
-export const handleUserResponse = ({ user }: { user: User }) => {
+export const handleUserResponse = ({ user }) => {
   window.localStorage.setItem(localStorageKey, user.token || '');
   return user;
 };
 
 // 登录 逻辑
-export const login = (data: { username: string; password: string }) => {
+export const login = (data) => {
   return fetch(`${apiUrl}/login`, {
     method: 'POST',
     headers: {
@@ -36,7 +35,7 @@ export const login = (data: { username: string; password: string }) => {
 };
 
 // 注册 逻辑
-export const register = (data: { username: string; password: string }) => {
+export const register = (data) => {
   return fetch(`${apiUrl}/register`, {
     method: 'POST',
     headers: {
